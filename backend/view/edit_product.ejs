@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Edit Product</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background: #f3f5f8;
+				color: #112138;
+				margin: 0;
+				padding: 2rem;
+			}
+			.wrap {
+				max-width: 760px;
+				margin: 0 auto;
+				background: #fff;
+				padding: 2rem;
+				border-radius: 16px;
+				box-shadow: 0 18px 30px rgba(17, 33, 56, 0.12);
+			}
+			label {
+				display: block;
+				font-weight: 700;
+				margin-bottom: 0.4rem;
+			}
+			input,
+			textarea {
+				width: 100%;
+				padding: 0.7rem 0.9rem;
+				border-radius: 10px;
+				border: 1px solid #dbe4ef;
+				margin-bottom: 1rem;
+				font-size: 0.95rem;
+			}
+			textarea {
+				min-height: 90px;
+			}
+			button {
+				width: 100%;
+				padding: 0.8rem 1rem;
+				border-radius: 999px;
+				border: none;
+				background: #7d0916;
+				color: #fff;
+				font-weight: 700;
+				cursor: pointer;
+			}
+			.notice {
+				border-radius: 10px;
+				padding: 0.6rem 0.8rem;
+				margin-bottom: 1rem;
+				font-size: 0.9rem;
+			}
+			.error {
+				color: #b91c1c;
+				background: #fee2e2;
+			}
+			.success {
+				color: #166534;
+				background: #dcfce7;
+			}
+			.actions {
+				display: flex;
+				justify-content: space-between;
+				gap: 1rem;
+				margin-bottom: 1rem;
+			}
+			.actions a {
+				color: #7d0916;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.thumb {
+				margin-bottom: 1rem;
+				background: #f8fafc;
+				border-radius: 12px;
+				padding: 0.75rem;
+			}
+			.thumb img {
+				max-width: 100%;
+				border-radius: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="actions">
+				<a href="/admin">Back to dashboard</a>
+				<a href="/admin/logout">Log out</a>
+			</div>
+
+			<h1>Edit Product</h1>
+			<% if (error) { %>
+				<div class="notice error"><%= error %></div>
+			<% } %>
+			<% if (success) { %>
+				<div class="notice success"><%= success %></div>
+			<% } %>
+			<% if (product.image) { %>
+				<div class="thumb">
+					<img src="<%= product.image %>" alt="<%= product.name %>" />
+				</div>
+			<% } %>
+
+			<form method="POST" action="/admin/products/<%= product.id %>" enctype="multipart/form-data">
+				<label for="name">Product Name</label>
+				<input id="name" name="name" type="text" value="<%= product.name %>" required />
+
+				<label for="category">Category</label>
+				<input id="category" name="category" type="text" value="<%= product.category %>" required />
+
+				<label for="spec">Specification</label>
+				<textarea id="spec" name="spec" required><%= product.spec %></textarea>
+
+				<label for="price">Price</label>
+				<input id="price" name="price" type="number" min="0" step="0.01" value="<%= product.priceRaw ?? product.price %>" />
+
+				<label for="image">Replace Photo</label>
+				<input id="image" name="image" type="file" accept="image/*" />
+
+				<button type="submit">Save Changes</button>
+			</form>
+		</div>
+	</body>
+</html>
