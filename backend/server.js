@@ -42,7 +42,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use('/api', healthRoutes)
 app.use('/api', productRoutes)
-app.use('/api', adminRoutes)
+app.use('/', adminRoutes)
 
 app.get('/', (_req, res) => {
     res.redirect('/admin/login')
