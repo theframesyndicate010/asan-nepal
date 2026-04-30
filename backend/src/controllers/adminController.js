@@ -17,13 +17,6 @@ const showLogin = (req, res) => {
   return res.render('login', { error: null })
 }
 
-const showSignup = (req, res) => {
-  if (req.session?.adminId) {
-    return res.redirect('/admin')
-  }
-  return res.render('signup', { error: null })
-}
-
 const handleLogin = async (req, res) => {
   const { username, password } = req.body
 
@@ -48,37 +41,6 @@ const handleLogin = async (req, res) => {
   } catch (error) {
     console.error('Login failed:', error)
     return res.status(500).render('login', { error: 'Something went wrong. Try again.' })
-  }
-}
-
-const handleSignup = async (req, res) => {
-  const { username, password } = req.body
-
-  if (!username || !password) {
-    return res.status(400).render('signup', { error: 'Username and password are required.' })
-  }
-
-  if (password.length < 6) {
-    return res
-      .status(400)
-      .render('signup', { error: 'Password must be at least 6 characters long.' })
-  }
-
-  try {
-    const existingAdmin = await findAdminByUsername(username)
-    if (existingAdmin) {
-      return res.status(409).render('signup', { error: 'Username is already taken.' })
-    }
-
-    const passwordHash = await bcrypt.hash(password, 10)
-    const adminId = await createAdmin({ username, passwordHash })
-
-    req.session.adminId = adminId
-    req.session.adminUsername = username
-    return res.redirect('/admin')
-  } catch (error) {
-    console.error('Signup failed:', error)
-    return res.status(500).render('signup', { error: 'Something went wrong. Try again.' })
   }
 }
 
@@ -255,9 +217,7 @@ const handleDeleteProduct = async (req, res) => {
 
 module.exports = {
   showLogin,
-  showSignup,
   handleLogin,
-  handleSignup,
   handleLogout,
   showDashboard,
   showAddProduct,

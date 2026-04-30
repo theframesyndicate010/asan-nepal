@@ -273,7 +273,7 @@ export const footerColumns = [
 
 export const socialLinks = ['Facebook', 'Instagram', 'YouTube', 'LinkedIn']
 
-export const contactEmail = ''
+export const contactEmail = 'info@asannepal.com'
 export const contactPhone = '+977 980-6015350'
 export const contactPhoneDial = '+9779806015350'
 export const contactWhatsApp = '+977 980-6015350'

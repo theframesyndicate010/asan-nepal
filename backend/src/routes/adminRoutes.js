@@ -4,9 +4,7 @@ const path = require('path')
 const multer = require('multer')
 const {
   showLogin,
-  showSignup,
   handleLogin,
-  handleSignup,
   handleLogout,
   showDashboard,
   showAddProduct,
@@ -53,8 +51,6 @@ const upload = multer({
 
 router.get('/admin/login', showLogin)
 router.post('/admin/login', handleLogin)
-router.get('/admin/signup', showSignup)
-router.post('/admin/signup', handleSignup)
 router.get('/admin/logout', handleLogout)
 
 router.get('/admin', requireAuth, showDashboard)

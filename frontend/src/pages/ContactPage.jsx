@@ -69,7 +69,7 @@ const ContactPage = ({
           <section className="contact-panel scroll-reveal reveal-up" data-animate="true">
             <div className="contact-panel-head">
               <p className="kicker">Company Details</p>
-              <h3 className="contact-panel-title">ASAN HOME appliances
+              <h3 className="contact-panel-title">ASAN HOME APPLIANCES
               </h3>
               <p className="contact-panel-sub">
                 Official company info, billing ra warranty details yahi cha. Need quick help? Scroll for direct contacts.
