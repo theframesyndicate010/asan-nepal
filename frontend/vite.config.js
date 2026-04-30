@@ -9,5 +9,8 @@ export default defineConfig({
   server: {
     host: true,
     allowedHosts: ['.trycloudflare.com'],
+    watch: {
+      usePolling: true,
+    },
   },
 })

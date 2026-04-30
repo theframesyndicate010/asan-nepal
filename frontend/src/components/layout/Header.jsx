@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import brandLogo from '../../assets/extracted-chat-images/chatimg-002.png'
 
 const Header = ({ navLinks }) => {
@@ -11,9 +11,9 @@ const Header = ({ navLinks }) => {
         className="topbar scroll-reveal reveal-down mx-auto w-full max-w-6xl px-6 py-5 md:px-10"
         data-animate="true"
       >
-        <a href="/" className="brand" aria-label="ASAN">
+        <Link to="/" className="brand" aria-label="ASAN">
           <img className="brand-logo-image" src={brandLogo} alt="ASAN Electronics" />
-        </a>
+        </Link>
         <nav className="nav-list" aria-label="Primary navigation">
           {navLinks.map((link) => (
             <NavLink
