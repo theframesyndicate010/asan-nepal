@@ -271,7 +271,12 @@ export const footerColumns = [
   },
 ]
 
-export const socialLinks = ['Facebook', 'Instagram', 'YouTube', 'LinkedIn']
+export const socialLinks = [
+  { label: 'Facebook', url: 'https://www.facebook.com/share/1KwSWFkUbd/?mibextid=wwXIfr' },
+  { label: 'Instagram', url: 'https://www.instagram.com/asan_nepal?igsh=MWJ2NTIxdHZxYmxqdg%3D%3D&utm_source=qr' },
+  { label: 'TikTok', url: 'https://www.tiktok.com/@asan_nepal?_r=1&_t=ZS-961YeaKBn3l' },
+]
+
 
 export const contactEmail = 'info@asannepal.com'
 export const contactPhone = '+977 980-6015350'

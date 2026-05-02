@@ -69,6 +69,13 @@ export const normalizeShopData = (apiData) => {
     }
   }) : defaultShopData.categoryCards)
 
+  const resolvedSocialLinks = (apiData.socialLinks || defaultShopData.socialLinks).map(link => {
+    if (typeof link === 'string') {
+      return { label: link, url: '#' }
+    }
+    return link
+  })
+
   return {
     ...defaultShopData,
     ...apiData,
@@ -79,6 +86,7 @@ export const normalizeShopData = (apiData) => {
     contactWhatsAppDial: resolvedWhatsAppDial,
     footerColumns: resolvedFooterColumns,
     categoryCards: resolvedCategoryCards,
+    socialLinks: resolvedSocialLinks,
     companyDetails: apiData.companyDetails || buildCompanyDetails({
       email: resolvedEmail,
       phone: resolvedPhone,

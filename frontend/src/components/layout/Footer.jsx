@@ -56,8 +56,14 @@ const Footer = ({ footerColumns, socialLinks, contactWhatsAppDial }) => {
           </p>
           <div className="social-row">
             {socialLinks.map((item) => (
-              <a key={item} href="#" className="social-chip">
-                {item}
+              <a 
+                key={item.label} 
+                href={item.url} 
+                className="social-chip"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.label}
               </a>
             ))}
           </div>
