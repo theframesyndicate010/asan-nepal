@@ -5,21 +5,36 @@ const SpecificationDisplay = ({ spec, className = 'product-spec', hideToggle = f
 
   if (!spec) return null
 
-  const words = spec.split(' ')
-  const isTruncated = words.length > 20
-  const displayText = isTruncated && !isExpanded && !hideToggle ? words.slice(0, 20).join(' ') + '...' : spec
+  const displayStyle = !isExpanded && !hideToggle ? {
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  } : {}
 
   return (
-    <div>
-      <p className={className}>{displayText}</p>
-      {isTruncated && !hideToggle && (
+    <div className="spec-display-container">
+      <p className={className} style={displayStyle}>
+        {spec}
+      </p>
+      {!hideToggle && spec.length > 60 && (
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
           className="text-link"
-          style={{ marginTop: '8px', fontSize: '0.875rem', fontWeight: '500' }}
+          style={{ 
+            marginTop: '4px', 
+            fontSize: '0.875rem', 
+            fontWeight: '600',
+            color: 'var(--accent)',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer'
+          }}
         >
-          {isExpanded ? 'Show less' : 'More'}
+          {isExpanded ? 'Show less' : 'Read more'}
         </button>
       )}
     </div>

@@ -70,14 +70,14 @@ const ContactPage = ({
 
       setFormStatus({
         state: 'sent',
-        message: 'Dhanyabad! Message receive bhayo. Hami 1 business day bhitra reply garchhau.',
+        message: 'Thank you! Your message has been received. We will reply within 1 business day.',
       })
       form.reset()
       setMessageValue('')
     } catch {
       setFormStatus({
         state: 'error',
-        message: 'Oops, message send bhayena. Feri try garnus.',
+        message: 'Oops, message was not sent. Please try again.',
       })
     }
   }
@@ -100,7 +100,7 @@ const ContactPage = ({
               <h3 className="contact-panel-title">ASAN HOME APPLIANCES
               </h3>
               <p className="contact-panel-sub">
-                Official company info, billing ra warranty details yahi cha. Need quick help? Scroll for direct contacts.
+                Official company info, billing and warranty details are here. Need quick help? Scroll for direct contacts.
               </p>
             </div>
             <div className="detail-list">
@@ -251,7 +251,7 @@ const ContactPage = ({
                 {formStatus.state === 'sending' ? 'Sending...' : 'Send Message'}
               </button>
               <p className="form-hint">
-                Urgent cha? Call us on{' '}
+                Is it urgent? Call us on{' '}
                 <a className="text-link" href={safePhoneDial ? `tel:${safePhoneDial}` : '#'}>
                   {contactPhone}
                 </a>

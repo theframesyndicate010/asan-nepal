@@ -22,25 +22,25 @@ const Footer = ({ footerColumns, socialLinks, contactWhatsAppDial }) => {
     if (link === 'Installation Support') {
       return {
         prefilledTopic: 'Installation / Service',
-        prefilledMessage: 'Namaste ASAN, I would like to request installation support for my appliance. Please let me know the available slots and any required documents.'
+        prefilledMessage: 'Hello ASAN, I would like to request installation support for my appliance. Please let me know the available slots and any required documents.'
       }
     }
     if (link === 'Warranty Terms') {
       return {
         prefilledTopic: 'Warranty / Parts',
-        prefilledMessage: 'Namaste ASAN, I have a query regarding the Warranty Terms of my product.'
+        prefilledMessage: 'Hello ASAN, I have a query regarding the Warranty Terms of my product.'
       }
     }
     if (link === 'EMI Assistance') {
       return {
         prefilledTopic: 'Other',
-        prefilledMessage: 'Namaste ASAN, I am interested in EMI assistance for my purchase.'
+        prefilledMessage: 'Hello ASAN, I am interested in EMI assistance for my purchase.'
       }
     }
     if (link === 'Contact Center') {
-      return { prefilledTopic: 'Other', prefilledMessage: 'Namaste ASAN, I would like to get in touch with your team for a general inquiry.' }
+      return { prefilledTopic: 'Other', prefilledMessage: 'Hello ASAN, I would like to get in touch with your team for a general inquiry.' }
     }
-    return { prefilledTopic: 'Other', prefilledMessage: `Namaste ASAN, I have a query regarding ${link}.` }
+    return { prefilledTopic: 'Other', prefilledMessage: `Hello ASAN, I have a query regarding ${link}.` }
   }
 
   return (
