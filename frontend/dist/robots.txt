@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://asannepal.com/sitemap.xml
+Sitemap: https://asannepal.com/sitemap.txt

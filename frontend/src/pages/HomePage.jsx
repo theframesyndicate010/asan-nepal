@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const HomePage = ({ stats, categoryCards, washerHighlights, tvHighlights }) => {
   return (
     <>
@@ -10,9 +12,9 @@ const HomePage = ({ stats, categoryCards, washerHighlights, tvHighlights }) => {
             dependable delivery and expert installation support.
           </p>
           <div className="hero-actions">
-            <button type="button" className="solid-btn pulse-ring">
+            <Link to="/product" className="solid-btn pulse-ring">
               Browse Products
-            </button>
+            </Link>
           </div>
           <div className="hero-metrics">
             {stats.map((item) => (
@@ -69,9 +71,9 @@ const HomePage = ({ stats, categoryCards, washerHighlights, tvHighlights }) => {
               </li>
             ))}
           </ul>
-          <button type="button" className="solid-btn">
+          <Link to="/product?category=Washing%20Machines" className="solid-btn" >
             View Washer Range
-          </button>
+          </Link>
         </article>
       </section>
 
@@ -94,9 +96,9 @@ const HomePage = ({ stats, categoryCards, washerHighlights, tvHighlights }) => {
               </li>
             ))}
           </ul>
-          <button type="button" className="outline-btn">
+          <Link to="/product?category=Smart%20TVs" className="outline-btn">
             Explore TV Range
-          </button>
+          </Link>
         </article>
       </section>
     </>

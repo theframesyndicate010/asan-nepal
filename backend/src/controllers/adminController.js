@@ -167,8 +167,9 @@ const handleUpdateProduct = async (req, res) => {
       return res.status(404).send('Product not found.')
     }
 
+    const categories = await fetchAllCategories()
+
     if (!name || !category || !spec) {
-      const categories = await fetchAllCategories()
       return res.status(400).render('edit_product', {
         error: 'Name, category, and spec are required.',
         success: null,
@@ -177,7 +178,6 @@ const handleUpdateProduct = async (req, res) => {
       })
     }
 
-    const categories = await fetchAllCategories()
     if (!categories.includes(category)) {
       return res.status(400).render('edit_product', {
         error: `Invalid category. Allowed: ${categories.join(', ')}`,
@@ -189,7 +189,6 @@ const handleUpdateProduct = async (req, res) => {
 
     const priceValue = price !== undefined && price !== '' ? Number(price) : null
     if (price !== undefined && price !== '' && (Number.isNaN(priceValue) || priceValue < 0)) {
-      const categories = await fetchAllCategories()
       return res.status(400).render('edit_product', {
         error: 'Price must be a valid number.',
         success: null,
@@ -211,7 +210,6 @@ const handleUpdateProduct = async (req, res) => {
       image: imagePath,
     })
 
-    const categories = await fetchAllCategories()
     return res.render('edit_product', {
       error: null,
       success: 'Product updated successfully.',
