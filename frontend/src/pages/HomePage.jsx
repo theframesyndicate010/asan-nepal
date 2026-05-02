@@ -3,11 +3,11 @@ const HomePage = ({ stats, categoryCards, washerHighlights, tvHighlights }) => {
     <>
       <section className="hero mx-auto w-full max-w-6xl px-6 md:px-10">
         <div className="hero-copy scroll-reveal reveal-left" data-animate="true">
-          <p className="kicker">Home Appliance Brand</p>
-          <h1 className="hero-title">Premium home electronics for comfort, efficiency and performance.</h1>
+          <p className="kicker">Sasto ra Ramro - ASAN Electronics</p>
+          <h1 className="hero-title">Aparajit quality home electronics for your comfort and lifestyle.</h1>
           <p className="hero-sub">
-            Discover ASAN washing machines, air conditioners, coolers, fans and smart TVs with genuine
-            warranty, dependable delivery and expert installation support.
+            ASAN offers ghar ko lagi best electronics across Nepal. Buy high-quality washing machines, air conditioners, 
+            fans, and smart TVs with genuine warranty and dependable service. Sasto ra ramro choice for every family.
           </p>
           <div className="hero-actions">
             <button type="button" className="solid-btn pulse-ring">

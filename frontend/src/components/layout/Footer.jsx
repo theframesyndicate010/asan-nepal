@@ -12,6 +12,7 @@ const Footer = ({ footerColumns, socialLinks, contactWhatsAppDial }) => {
     if (columnTitle === 'Company') {
       if (link === 'About Us') return '/about'
       if (link === 'Store Locator') return '/contact#store-location'
+      if (link === 'Privacy Policy') return '/privacy'
       if (link === 'Careers') return '/contact'
     }
     return '#'

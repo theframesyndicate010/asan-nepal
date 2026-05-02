@@ -45,55 +45,50 @@ const ProductPage = ({ productFilters, productCatalog }) => {
         ))}
       </div>
 
-      <div className="product-groups">
-        {groupedProductEntries.map(([heading, products]) => (
-          <section key={heading} className="product-group scroll-reveal reveal-up" data-animate="true">
-            <h3 className="product-heading">{heading}</h3>
-            <div className="product-grid">
-              {products.map((product) => (
-                product.id ? (
-                  <Link
-                    key={product.id}
-                    to={`/product/${product.id}`}
-                    className="product-card product-card-link tilt-card scroll-reveal reveal-zoom"
-                    data-animate="true"
-                    aria-label={`View ${product.name}`}
-                  >
-                    <div className="product-thumb">
-                      <img src={resolveImage(product.image)} alt={product.name} />
-                      <span className="product-badge">{product.category}</span>
-                    </div>
-                    <div className="product-content">
-                      <h4 className="product-name">{product.name}</h4>
-                      <SpecificationDisplay spec={product.spec} />
-                      <div className="product-meta">
-                        <p className="product-price">{product.price}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ) : (
-                  <article
-                    key={product.name}
-                    className="product-card tilt-card scroll-reveal reveal-zoom"
-                    data-animate="true"
-                  >
-                    <div className="product-thumb">
-                      <img src={resolveImage(product.image)} alt={product.name} />
-                      <span className="product-badge">{product.category}</span>
-                    </div>
-                    <div className="product-content">
-                      <h4 className="product-name">{product.name}</h4>
-                      <SpecificationDisplay spec={product.spec} />
-                      <div className="product-meta">
-                        <p className="product-price">{product.price}</p>
-                      </div>
-                    </div>
-                  </article>
-                )
-              ))}
-            </div>
-          </section>
-        ))}
+      <div className="product-catalog-grid mt-10">
+        <div className="product-grid">
+          {filteredProducts.map((product) => (
+            product.id ? (
+              <Link
+                key={product.id}
+                to={`/product/${product.id}`}
+                className="product-card product-card-link tilt-card scroll-reveal reveal-zoom"
+                data-animate="true"
+                aria-label={`View ${product.name}`}
+              >
+                <div className="product-thumb">
+                  <img src={resolveImage(product.image)} alt={product.name} />
+                  <span className="product-badge">{product.category}</span>
+                </div>
+                <div className="product-content">
+                  <h4 className="product-name">{product.name}</h4>
+                  <SpecificationDisplay spec={product.spec} hideToggle />
+                  <div className="product-meta">
+                    <p className="product-price">{product.price}</p>
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <article
+                key={product.name}
+                className="product-card tilt-card scroll-reveal reveal-zoom"
+                data-animate="true"
+              >
+                <div className="product-thumb">
+                  <img src={resolveImage(product.image)} alt={product.name} />
+                  <span className="product-badge">{product.category}</span>
+                </div>
+                <div className="product-content">
+                  <h4 className="product-name">{product.name}</h4>
+                  <SpecificationDisplay spec={product.spec} hideToggle />
+                  <div className="product-meta">
+                    <p className="product-price">{product.price}</p>
+                  </div>
+                </div>
+              </article>
+            )
+          ))}
+        </div>
       </div>
     </section>
   )

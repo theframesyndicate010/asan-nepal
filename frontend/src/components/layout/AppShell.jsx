@@ -5,6 +5,7 @@ import Header from './Header'
 import AboutPage from '../../pages/AboutUs'
 import ContactPage from '../../pages/ContactPage'
 import HomePage from '../../pages/HomePage'
+import PrivacyPolicy from '../../pages/PrivacyPolicy'
 import ProductDetailPage from '../../pages/ProductDetailPage'
 import ProductPage from '../../pages/ProductPage'
 
@@ -30,6 +31,7 @@ const AppShell = ({ shopData, apiStatus }) => {
   } = shopData
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     console.log('AppShell: Initializing scroll animations...')
     console.log('AppShell: shopData status:', Object.keys(shopData).length > 0 ? 'loaded' : 'empty')
     
@@ -132,6 +134,7 @@ const AppShell = ({ shopData, apiStatus }) => {
               />
             }
           />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

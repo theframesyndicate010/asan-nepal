@@ -92,7 +92,7 @@ const ProductDetailPage = () => {
             <div className="detail-header">
               <span className="detail-chip">{detailProduct.category}</span>
               <h3 className="detail-title">{detailProduct.name}</h3>
-              <SpecificationDisplay spec={detailProduct.spec} className="detail-spec" />
+              <SpecificationDisplay spec={detailProduct.spec} className="detail-spec" hideToggle />
             </div>
 
             <div className="detail-meta">
