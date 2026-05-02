@@ -92,7 +92,7 @@ const AppShell = ({ shopData, apiStatus }) => {
         </div>
       ) : null}
 
-      <Header navLinks={navLinks} />
+      <Header navLinks={navLinks} contactPhoneDial={contactPhoneDial} />
 
       <main className="site-main pb-0">
         <Routes>

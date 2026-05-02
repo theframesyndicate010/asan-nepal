@@ -1,18 +1,32 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { resolveImage } from '../utils/shopData'
 import SpecificationDisplay from '../components/SpecificationDisplay'
 
 const ProductPage = ({ productFilters, productCatalog }) => {
   const [activeFilter, setActiveFilter] = useState('All')
+  const [searchParams] = useSearchParams()
+  const searchQuery = searchParams.get('q') || ''
 
-  const filteredProducts = useMemo(
-    () =>
-      activeFilter === 'All'
-        ? productCatalog
-        : productCatalog.filter((product) => product.category === activeFilter),
-    [activeFilter, productCatalog],
-  )
+  const filteredProducts = useMemo(() => {
+    let products = productCatalog
+
+    if (activeFilter !== 'All') {
+      products = products.filter((product) => product.category === activeFilter)
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim()
+      products = products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(q) ||
+          product.category.toLowerCase().includes(q) ||
+          (product.spec && product.spec.toLowerCase().includes(q)),
+      )
+    }
+
+    return products
+  }, [activeFilter, productCatalog, searchQuery])
 
   const groupedProductEntries = useMemo(
     () =>
@@ -44,6 +58,17 @@ const ProductPage = ({ productFilters, productCatalog }) => {
           </button>
         ))}
       </div>
+
+      {searchQuery && (
+        <div className="search-results-info mt-6 scroll-reveal reveal-up" data-animate="true">
+          <p className="text-muted">
+            Showing results for "<strong>{searchQuery}</strong>"
+            <Link to="/product" className="text-link ml-3" style={{ fontSize: '0.9rem', color: 'var(--accent)' }}>
+              Clear Search
+            </Link>
+          </p>
+        </div>
+      )}
 
       <div className="product-catalog-grid mt-10">
         <div className="product-grid">

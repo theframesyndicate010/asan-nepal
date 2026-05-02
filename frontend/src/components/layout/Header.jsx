@@ -1,9 +1,19 @@
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import brandLogo from '../../assets/extracted-chat-images/chatimg-002.png'
 
-const Header = ({ navLinks }) => {
+const Header = ({ navLinks, contactPhoneDial }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      navigate(`/product?q=${encodeURIComponent(searchQuery.trim())}`)
+      setIsMenuOpen(false)
+    }
+  }
 
   return (
     <>
@@ -26,32 +36,39 @@ const Header = ({ navLinks }) => {
             </NavLink>
           ))}
         </nav>
-        <div className="search-wrapper topbar-search">
+        <form onSubmit={handleSearch} className="search-wrapper topbar-search">
           <input
             type="text"
             className="search-input"
             placeholder="Search products..."
             aria-label="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <svg
-            className="search-icon"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </div>
-        <div className="header-actions">
-          <button type="button" className="solid-btn small pulse-ring">
-            Talk to Sales
+          <button type="submit" className="search-submit-btn" aria-label="Submit search">
+            <svg
+              className="search-icon"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
           </button>
+        </form>
+        <div className="header-actions">
+          <a
+            href={`tel:${contactPhoneDial}`}
+            className="solid-btn small pulse-ring"
+          >
+            Talk to Sales
+          </a>
           <button
             type="button"
             className={`menu-toggle${isMenuOpen ? ' active' : ''}`}
