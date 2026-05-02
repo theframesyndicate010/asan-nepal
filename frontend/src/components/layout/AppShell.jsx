@@ -111,7 +111,7 @@ const AppShell = ({ shopData, apiStatus }) => {
           />
           <Route
             path="/product/:id"
-            element={<ProductDetailPage productCatalog={productCatalog} />}
+            element={<ProductDetailPage />}
           />
           <Route path="/about" element={<AboutPage />} />
           <Route
@@ -136,7 +136,11 @@ const AppShell = ({ shopData, apiStatus }) => {
         </Routes>
       </main>
 
-      <Footer footerColumns={footerColumns} socialLinks={socialLinks} />
+      <Footer
+        footerColumns={footerColumns}
+        socialLinks={socialLinks}
+        contactWhatsAppDial={contactWhatsAppDial}
+      />
     </div>
   )
 }

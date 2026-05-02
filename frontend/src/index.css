@@ -1128,6 +1128,19 @@ a {
   padding: 1.1rem;
   display: grid;
   gap: 0.5rem;
+  text-align: left;
+}
+
+.contact-card.interactive {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.contact-card.interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 32px rgba(18, 38, 66, 0.12);
+  border-color: rgba(var(--accent-rgb), 0.3);
 }
 
 .contact-title {

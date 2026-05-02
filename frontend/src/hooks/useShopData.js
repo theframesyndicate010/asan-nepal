@@ -4,7 +4,11 @@ import { fetchShopData } from '../api/products'
 import { normalizeShopData } from '../utils/shopData'
 
 export const useShopData = () => {
-  const [shopData, setShopData] = useState(defaultShopData)
+  const [shopData, setShopData] = useState({
+    ...defaultShopData,
+    productCatalog: [],
+    productFilters: ['All'],
+  })
   const [apiStatus, setApiStatus] = useState({ state: 'loading', message: 'Loading catalog...' })
 
   useEffect(() => {

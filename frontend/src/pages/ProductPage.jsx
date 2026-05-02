@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { resolveImage } from '../utils/shopData'
+import SpecificationDisplay from '../components/SpecificationDisplay'
 
 const ProductPage = ({ productFilters, productCatalog }) => {
   const [activeFilter, setActiveFilter] = useState('All')
@@ -64,7 +65,7 @@ const ProductPage = ({ productFilters, productCatalog }) => {
                     </div>
                     <div className="product-content">
                       <h4 className="product-name">{product.name}</h4>
-                      <p className="product-spec">{product.spec}</p>
+                      <SpecificationDisplay spec={product.spec} />
                       <div className="product-meta">
                         <p className="product-price">{product.price}</p>
                       </div>
@@ -82,7 +83,7 @@ const ProductPage = ({ productFilters, productCatalog }) => {
                     </div>
                     <div className="product-content">
                       <h4 className="product-name">{product.name}</h4>
-                      <p className="product-spec">{product.spec}</p>
+                      <SpecificationDisplay spec={product.spec} />
                       <div className="product-meta">
                         <p className="product-price">{product.price}</p>
                       </div>

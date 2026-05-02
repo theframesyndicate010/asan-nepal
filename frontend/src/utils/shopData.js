@@ -49,6 +49,26 @@ export const normalizeShopData = (apiData) => {
     dialFromPhone(resolvedWhatsApp) ||
     defaultShopData.contactWhatsAppDial
 
+  const resolvedCategories = apiData.categories || []
+  
+  const resolvedFooterColumns = apiData.footerColumns || (resolvedCategories.length > 0 ? defaultShopData.footerColumns.map(col => {
+    if (col.title === 'Shop') {
+      return { ...col, links: resolvedCategories }
+    }
+    return col
+  }) : defaultShopData.footerColumns)
+
+  const resolvedCategoryCards = apiData.categoryCards || (resolvedCategories.length > 0 ? resolvedCategories.map(catName => {
+    const existing = defaultShopData.categoryCards.find(card => card.title === catName)
+    if (existing) return existing
+    return {
+      code: catName.substring(0, 2).toUpperCase(),
+      title: catName,
+      text: `Quality ${catName} built for performance and durability in modern homes.`,
+      tag: 'Authorized Dealer'
+    }
+  }) : defaultShopData.categoryCards)
+
   return {
     ...defaultShopData,
     ...apiData,
@@ -57,6 +77,8 @@ export const normalizeShopData = (apiData) => {
     contactPhoneDial: resolvedPhoneDial,
     contactWhatsApp: resolvedWhatsApp,
     contactWhatsAppDial: resolvedWhatsAppDial,
+    footerColumns: resolvedFooterColumns,
+    categoryCards: resolvedCategoryCards,
     companyDetails: apiData.companyDetails || buildCompanyDetails({
       email: resolvedEmail,
       phone: resolvedPhone,

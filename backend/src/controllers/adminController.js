@@ -9,6 +9,7 @@ const {
   deleteProductById,
   updateProduct,
 } = require('../services/productService')
+const { fetchAllCategories } = require('../services/categoryService')
 
 const showLogin = (req, res) => {
   if (req.session?.adminId) {
@@ -54,8 +55,14 @@ const showDashboard = (req, res) => {
   res.render('dashboard', { username: req.session.adminUsername })
 }
 
-const showAddProduct = (req, res) => {
-  res.render('product', { error: null, success: null })
+const showAddProduct = async (req, res) => {
+  try {
+    const categories = await fetchAllCategories()
+    res.render('product', { error: null, success: null, categories })
+  } catch (error) {
+    console.error('Failed to load categories:', error)
+    res.status(500).send('Failed to load categories.')
+  }
 }
 
 const showProducts = async (_req, res) => {
@@ -80,7 +87,8 @@ const showEditProduct = async (req, res) => {
       return res.status(404).send('Product not found.')
     }
 
-    return res.render('edit_product', { error: null, success: null, product })
+    const categories = await fetchAllCategories()
+    return res.render('edit_product', { error: null, success: null, product, categories })
   } catch (error) {
     console.error('Failed to load product:', error)
     return res.status(500).send('Failed to load product.')
@@ -92,17 +100,30 @@ const handleAddProduct = async (req, res) => {
   const file = req.file
 
   if (!name || !category || !spec) {
+    const categories = await fetchAllCategories()
     return res.status(400).render('product', {
       error: 'Name, category, and spec are required.',
       success: null,
+      categories,
+    })
+  }
+
+  const categories = await fetchAllCategories()
+  if (!categories.includes(category)) {
+    return res.status(400).render('product', {
+      error: `Invalid category. Allowed: ${categories.join(', ')}`,
+      success: null,
+      categories,
     })
   }
 
   const priceValue = price !== undefined && price !== '' ? Number(price) : null
   if (price !== undefined && price !== '' && (Number.isNaN(priceValue) || priceValue < 0)) {
+    const categories = await fetchAllCategories()
     return res.status(400).render('product', {
       error: 'Price must be a valid number.',
       success: null,
+      categories,
     })
   }
 
@@ -122,9 +143,11 @@ const handleAddProduct = async (req, res) => {
     return res.redirect('/admin')
   } catch (error) {
     console.error('Failed to add product:', error)
+    const categories = await fetchAllCategories()
     return res.status(500).render('product', {
       error: 'Failed to save product. Try again.',
       success: null,
+      categories,
     })
   }
 }
@@ -145,19 +168,33 @@ const handleUpdateProduct = async (req, res) => {
     }
 
     if (!name || !category || !spec) {
+      const categories = await fetchAllCategories()
       return res.status(400).render('edit_product', {
         error: 'Name, category, and spec are required.',
         success: null,
         product: { ...existing, name, category, spec, price, priceRaw: price },
+        categories,
+      })
+    }
+
+    const categories = await fetchAllCategories()
+    if (!categories.includes(category)) {
+      return res.status(400).render('edit_product', {
+        error: `Invalid category. Allowed: ${categories.join(', ')}`,
+        success: null,
+        product: { ...existing, name, category, spec, price, priceRaw: price },
+        categories,
       })
     }
 
     const priceValue = price !== undefined && price !== '' ? Number(price) : null
     if (price !== undefined && price !== '' && (Number.isNaN(priceValue) || priceValue < 0)) {
+      const categories = await fetchAllCategories()
       return res.status(400).render('edit_product', {
         error: 'Price must be a valid number.',
         success: null,
         product: { ...existing, name, category, spec, price, priceRaw: price },
+        categories,
       })
     }
 
@@ -174,10 +211,12 @@ const handleUpdateProduct = async (req, res) => {
       image: imagePath,
     })
 
+    const categories = await fetchAllCategories()
     return res.render('edit_product', {
       error: null,
       success: 'Product updated successfully.',
       product: { ...existing, name, category, spec, price, priceRaw: priceValue, image: imagePath },
+      categories,
     })
   } catch (error) {
     console.error('Failed to update product:', error)

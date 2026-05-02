@@ -263,11 +263,11 @@ export const footerColumns = [
   },
   {
     title: 'Customer Care',
-    links: ['Order Tracking', 'Installation Support', 'Warranty Terms', 'EMI Assistance', 'Contact Center'],
+    links: [ 'Installation Support', 'Warranty Terms', 'EMI Assistance', 'Contact Center'],
   },
   {
     title: 'Company',
-    links: ['About Us', 'Store Locator', 'Dealer Partnership', 'Careers', 'Privacy Policy'],
+    links: ['About Us', 'Store Locator', 'Privacy Policy'],
   },
 ]
 

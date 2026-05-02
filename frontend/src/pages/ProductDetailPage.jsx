@@ -1,19 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { fetchProductById } from '../api/products'
 import { resolveImage } from '../utils/shopData'
+import SpecificationDisplay from '../components/SpecificationDisplay'
 
-const ProductDetailPage = ({ productCatalog }) => {
+const ProductDetailPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const numericId = Number(id)
   const [product, setProduct] = useState(null)
   const [status, setStatus] = useState({ state: 'loading', message: '' })
-
-  const fallbackProduct = useMemo(() => {
-    if (!Number.isInteger(numericId)) return null
-    return productCatalog.find((item) => item.id === numericId) || null
-  }, [numericId, productCatalog])
 
   useEffect(() => {
     if (!Number.isInteger(numericId)) {
@@ -38,10 +34,9 @@ const ProductDetailPage = ({ productCatalog }) => {
           return
         }
 
-        setProduct(fallbackProduct)
         setStatus({
           state: 'error',
-          message: fallbackProduct ? 'Showing cached details. Live data is unavailable.' : 'Product not found.',
+          message: 'Unable to load product. Please try again.',
         })
       }
     }
@@ -52,9 +47,9 @@ const ProductDetailPage = ({ productCatalog }) => {
       isActive = false
       controller.abort()
     }
-  }, [numericId, fallbackProduct])
+  }, [numericId])
 
-  const detailProduct = product || fallbackProduct
+  const detailProduct = product
 
   const handleRequestQuote = () => {
     if (!detailProduct) return
@@ -97,7 +92,7 @@ const ProductDetailPage = ({ productCatalog }) => {
             <div className="detail-header">
               <span className="detail-chip">{detailProduct.category}</span>
               <h3 className="detail-title">{detailProduct.name}</h3>
-              <p className="detail-spec">{detailProduct.spec}</p>
+              <SpecificationDisplay spec={detailProduct.spec} className="detail-spec" />
             </div>
 
             <div className="detail-meta">
@@ -129,10 +124,16 @@ const ProductDetailPage = ({ productCatalog }) => {
         </div>
       ) : (
         <div className="product-detail-empty scroll-reveal reveal-up" data-animate="true">
-          <p>We could not find this product. Please return to the catalog and try again.</p>
-          <Link to="/product" className="solid-btn">
-            Browse products
-          </Link>
+          {status.state === 'loading' ? (
+            <p>Loading product details...</p>
+          ) : (
+            <>
+              <p>We could not find this product. Please return to the catalog and try again.</p>
+              <Link to="/product" className="solid-btn">
+                Browse products
+              </Link>
+            </>
+          )}
         </div>
       )}
     </section>

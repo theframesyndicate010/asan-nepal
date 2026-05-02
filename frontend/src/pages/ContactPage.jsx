@@ -14,13 +14,41 @@ const ContactPage = ({
   const location = useLocation()
   const [formStatus, setFormStatus] = useState({ state: 'idle', message: '' })
   const [messageValue, setMessageValue] = useState('')
+  const [topicValue, setTopicValue] = useState('Product Inquiry')
   const safePhoneDial = contactPhoneDial || dialFromPhone(contactPhone)
 
   useEffect(() => {
-    if (location.state?.prefilledMessage) {
+    if (location.state?.prefilledMessage !== undefined) {
       setMessageValue(location.state.prefilledMessage)
     }
-  }, [location.state?.prefilledMessage])
+    if (location.state?.prefilledTopic) {
+      setTopicValue(location.state.prefilledTopic)
+    }
+  }, [location.state])
+
+  useEffect(() => {
+    const hash = location.hash
+    if (hash === '#store-location' || hash === '#contact-form') {
+      const elementId = hash.substring(1)
+      const element = document.getElementById(elementId)
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 100)
+      }
+    }
+  }, [location.hash])
+
+  const handleQuickHelp = (topic, message) => {
+    setTopicValue(topic)
+    setMessageValue(message)
+    const element = document.getElementById('contact-form')
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 50)
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -90,7 +118,7 @@ const ContactPage = ({
               ))}
             </div>
           </section>
-
+          
           <section className="contact-panel soft scroll-reveal reveal-up" data-animate="true">
             <div className="contact-panel-head">
               <p className="kicker">Quick Contact</p>
@@ -101,7 +129,12 @@ const ContactPage = ({
             </div>
             <div className="contact-grid">
               {contactPoints.map((item) => (
-                <article key={item.title} className="contact-card scroll-reveal reveal-zoom" data-animate="true">
+                <article
+                  key={item.title}
+                  id={item.title === 'Showroom Address' ? 'store-location' : undefined}
+                  className="contact-card scroll-reveal reveal-zoom"
+                  data-animate="true"
+                >
                   <h3 className="contact-title">{item.title}</h3>
                   {item.href ? (
                     <a className="contact-value contact-link" href={item.href}>
@@ -117,7 +150,7 @@ const ContactPage = ({
           </section>
         </div>
 
-        <article className="contact-form-card scroll-reveal reveal-up" data-animate="true">
+        <article id="contact-form" className="contact-form-card scroll-reveal reveal-up" data-animate="true">
           <div className="contact-panel-head">
             <p className="kicker">Message Us</p>
             <h3 className="contact-panel-title">Send a message</h3>
@@ -182,7 +215,13 @@ const ContactPage = ({
                 <label className="form-label" htmlFor="contact-topic">
                   Topic
                 </label>
-                <select className="form-select" id="contact-topic" name="topic" defaultValue="Product Inquiry">
+                <select
+                  className="form-select"
+                  id="contact-topic"
+                  name="topic"
+                  value={topicValue}
+                  onChange={(e) => setTopicValue(e.target.value)}
+                >
                   <option>Product Inquiry</option>
                   <option>Order Status</option>
                   <option>Installation / Service</option>

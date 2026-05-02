@@ -95,7 +95,12 @@
 				<input id="name" name="name" type="text" required />
 
 				<label for="category">Category</label>
-				<input id="category" name="category" type="text" required />
+				<select id="category" name="category" required>
+					<option value="" disabled selected>Select a category</option>
+					<% categories.forEach(function(cat) { %>
+						<option value="<%= cat %>"><%= cat %></option>
+					<% }) %>
+				</select>
 
 				<label for="spec">Specification</label>
 				<textarea id="spec" name="spec" required></textarea>
